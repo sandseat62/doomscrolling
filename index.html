@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Endless Loop: Doomscrolling Factsheet</title>
+    <!-- Tailwind CSS for modern, responsive layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for interactive data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Poppins and Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        graceBlue: '#027DC1',
+                        graceTeal: '#00B0BD',
+                        graceOrange: '#c75d00',
+                        graceDark: '#353230',
+                        graceLight: '#f4f7f6',
+                        graceGold: '#D4AF37'
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .mosaic-bg {
+            background-image: radial-gradient(#00B0BD 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-graceLight font-sans text-graceDark leading-relaxed overflow-x-hidden">
+
+    <!-- Chosen Palette: Grace Brand Harmony (Grace Blue, Grace Teal, Grace Orange, Grace Dark, Grace Light) -->
+    <!-- Application Structure Plan: 
+        The SPA follows the established thematic dashboard layout.
+        It prioritizes ease of navigation through five pillars:
+        1. 'The Reality' (Consumption stats: 38% sleep loss, 46% of teens online constantly), 
+        2. 'The Evolution' (The shift from finite pages to the 'Infinite Scroll'), 
+        3. 'The Machine' (Variable Reward Schedules and Negativity Bias), 
+        4. 'The Cycle' (Comparison of Finite content vs. Infinite algorithms), and 
+        5. 'The Defense' (The 'Digital Friction' and 'Push vs. Pull' action plan).
+        This structure simplifies complex algorithmic concepts into a step-by-step guide for parents and leadership.
+    -->
+    <!-- Visualization & Content Choices:
+        1. Impact Stats -> Goal: Inform -> Dynamic Stat Cards -> Highlights the 38% sleep loss and teen usage.
+        2. Demographic Comparison -> Goal: Compare -> Bar Chart (Chart.js) -> Compares Gen Z vs. Other adults in doomscrolling habits.
+        3. Interaction Matrix -> Goal: Compare -> Interactive Table -> Contrasts 'Finite Reading' (books/articles) with 'Infinite Feeds'.
+        4. Technical Defense -> Goal: Organize -> Interactive Tiles -> Focuses on Grayscale mode and notification management.
+        Justification: Bar charts and simple tables are used to make the psychological impact of "Endless" content clear and measurable. library: Chart.js (Canvas).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-graceBlue text-white py-12 px-6 shadow-xl relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <h2 class="text-graceTeal font-heading font-bold uppercase tracking-widest text-sm mb-2">Gracewired.com</h2>
+                    <h1 class="text-4xl md:text-6xl font-heading font-bold leading-tight">The Endless Loop</h1>
+                    <p class="text-xl text-blue-100 mt-2 font-light">Navigating Doomscrolling in the Information Age</p>
+                </div>
+                <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">
+                    <p class="text-xs uppercase font-bold text-graceTeal mb-1">A Mosaic Resource for</p>
+                    <p class="text-lg font-heading">Grace Community Church</p>
+                </div>
+            </div>
+            
+            <nav class="flex flex-wrap gap-2 justify-center md:justify-start">
+                <button onclick="showTab('reality')" class="nav-btn active bg-white text-graceBlue px-6 py-2 rounded-full font-bold transition-all hover:bg-graceTeal hover:text-white">The Reality</button>
+                <button onclick="showTab('evolution')" class="nav-btn bg-graceBlue border border-white/30 text-white px-6 py-2 rounded-full font-bold transition-all hover:bg-white hover:text-graceBlue">Infinite Scroll</button>
+                <button onclick="showTab('machine')" class="nav-btn bg-graceBlue border border-white/30 text-white px-6 py-2 rounded-full font-bold transition-all hover:bg-white hover:text-graceBlue">The Machine</button>
+                <button onclick="showTab('comparison')" class="nav-btn bg-graceBlue border border-white/30 text-white px-6 py-2 rounded-full font-bold transition-all hover:bg-white hover:text-graceBlue">The Cycle</button>
+                <button onclick="showTab('defense')" class="nav-btn bg-graceOrange text-white px-6 py-2 rounded-full font-bold transition-all shadow-lg hover:scale-105">Protect Home</button>
+            </nav>
+        </div>
+        <div class="absolute right-0 top-0 w-64 h-64 bg-graceTeal rounded-full -mr-32 -mt-32 opacity-20"></div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 mosaic-bg min-h-[600px]">
+
+        <!-- TAB: REALITY -->
+        <div id="reality" class="tab-content active animate-in fade-in duration-500">
+            <div class="mb-12">
+                <h2 class="text-3xl font-heading font-bold text-graceBlue mb-4">The State of the Screen</h2>
+                <p class="text-lg max-w-3xl">In 2026, "staying informed" has crossed the line into a behavioral dependency. Doomscrolling exploits our biological need to identify threats, keeping us in a state of constant anxiety.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-t-4 border-graceTeal">
+                    <p class="text-5xl font-bold text-graceBlue mb-2">38%</p>
+                    <h4 class="font-bold text-lg mb-2">Sleep Loss</h4>
+                    <p class="text-sm text-gray-500">Of Americans report that doomscrolling is the primary reason they fail to get enough sleep at night.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-t-4 border-graceOrange">
+                    <p class="text-5xl font-bold text-graceOrange mb-2">46%</p>
+                    <h4 class="font-bold text-lg mb-2">Constant Teen Use</h4>
+                    <p class="text-sm text-gray-500">Of teenagers report being online "almost constantly," primarily through algorithm-driven news and social feeds.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-t-4 border-graceBlue">
+                    <p class="text-5xl font-bold text-graceBlue mb-2">4.8h</p>
+                    <h4 class="font-bold text-lg mb-2">Daily Average</h4>
+                    <p class="text-sm text-gray-500">The average time spent in "passive information consumption" by Gen Z users daily.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-lg">
+                <h3 class="text-xl font-heading font-bold mb-6 text-center">Doomscrolling Tendencies by Demographic</h3>
+                <div class="chart-container">
+                    <canvas id="realityChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-6 italic">Source: Gracewired Digital Health Survey 2026</p>
+            </div>
+        </div>
+
+        <!-- TAB: EVOLUTION -->
+        <div id="evolution" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold text-graceBlue mb-6">The Death of the "Stop Sign"</h2>
+                    <p class="mb-6">Before 2011, the internet was made of pages. You reached the bottom and stopped. Modern design has removed these physical cues to keep the brain engaged indefinitely.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-blue-100 p-3 rounded-xl text-graceBlue font-bold">01</div>
+                            <div>
+                                <h4 class="font-bold">Infinite Scroll</h4>
+                                <p class="text-sm text-gray-600">By removing the need to click "Next," the algorithm bypasses the part of the brain that handles decision-making.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-teal-100 p-3 rounded-xl text-graceTeal font-bold">02</div>
+                            <div>
+                                <h4 class="font-bold">Variable Rewards</h4>
+                                <p class="text-sm text-gray-600">Like a slot machine, the feed gives you a "win" (funny video/shocking news) at unpredictable times to keep you pulling.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-orange-100 p-3 rounded-xl text-graceOrange font-bold">03</div>
+                            <div>
+                                <h4 class="font-bold">Frictionless Flow</h4>
+                                <p class="text-sm text-gray-600">The transition from one distressing story to the next is seamless, preventing the "logical pause" required to put the phone down.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-2 rounded-3xl shadow-2xl border border-gray-100">
+                    <div class="bg-graceDark p-8 rounded-2xl text-white">
+                        <h4 class="text-graceTeal font-bold mb-4">Design Evolution</h4>
+                        <div class="space-y-4">
+                            <div class="pb-4 border-b border-gray-700">
+                                <p class="text-xs text-gray-400 uppercase">Pre-2011: Finite Web</p>
+                                <p class="font-medium">Page Bottom $\rightarrow$ Click "Next" $\rightarrow$ Decision Point</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-graceOrange uppercase">2026: Infinite Web</p>
+                                <p class="font-medium">Continuous Load $\rightarrow$ Endless Scroll $\rightarrow$ Passive Trance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: MACHINE -->
+        <div id="machine" class="tab-content">
+            <h2 class="text-3xl font-heading font-bold text-graceBlue mb-8">The Outrage Architecture</h2>
+            <p class="text-lg mb-10 max-w-4xl">Algorithms prioritize engagement over accuracy. Because anger and fear keep people on platforms longer than peace, the "Machine" pushes negativity to the top.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <h4 class="text-graceOrange font-bold text-xl mb-4">The Dopamine Loop</h4>
+                    <p class="mb-4">The brain anticipates a reward with every "swipe." Even a distressing headline releases dopamine because the brain believes it is "surviving" by knowing the threat.</p>
+                    <div class="chart-container">
+                        <canvas id="algorithmChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <h4 class="text-graceBlue font-bold text-xl mb-4">Psychological Tactics</h4>
+                    <ul class="space-y-4">
+                        <li class="bg-gray-50 p-4 rounded-xl border-l-4 border-graceTeal">
+                            <span class="font-bold">Negativity Bias:</span> We are hardwired to notice threats. Algorithms weight negative news 3x heavier for visibility.
+                        </li>
+                        <li class="bg-gray-50 p-4 rounded-xl border-l-4 border-graceBlue">
+                            <span class="font-bold">Mean World Syndrome:</span> Users begin to believe the world is more dangerous than it is due to the constant diet of tragedies.
+                        </li>
+                        <li class="bg-gray-50 p-4 rounded-xl border-l-4 border-graceDark">
+                            <span class="font-bold">Echo Chambers:</span> Fear-based content leads to tribalism, where the algorithm only feeds information that validates existing fears.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: COMPARISON -->
+        <div id="comparison" class="tab-content">
+            <h2 class="text-3xl font-heading font-bold text-graceBlue mb-8">Finite Reading vs. Infinite Feeds</h2>
+            
+            <div class="bg-white rounded-3xl overflow-hidden shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 bg-graceDark text-white font-bold p-6">
+                    <div>Activity</div>
+                    <div class="text-gray-400">Finite Content (Healthy)</div>
+                    <div class="text-graceTeal">Infinite Feed (Doomscroll)</div>
+                </div>
+                <div class="divide-y divide-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-6 items-center">
+                        <div class="font-bold text-graceBlue">Completion</div>
+                        <div class="text-sm">Has a beginning and end.</div>
+                        <div class="text-sm font-medium">Endless; no stopping point.</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-6 items-center">
+                        <div class="font-bold text-graceBlue">Mental Effort</div>
+                        <div class="text-sm">Active (Thinking/Absorbing)</div>
+                        <div class="text-sm font-medium">Passive (Scanning/Reacting)</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-6 items-center">
+                        <div class="font-bold text-graceBlue">Emotional State</div>
+                        <div class="text-sm">Closure and Insight</div>
+                        <div class="text-sm font-medium">Restlessness and Anxiety</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-6 items-center">
+                        <div class="font-bold text-graceBlue">The Goal</div>
+                        <div class="text-sm">To learn or enjoy.</div>
+                        <div class="text-sm font-medium">To "keep up" or find safety.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DEFENSE -->
+        <div id="defense" class="tab-content">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-graceBlue mb-4">Reclaiming Your Peace</h2>
+                <p class="text-lg">Breaking the loop requires introducing "Friction" back into your digital life. We move from being "pushed" by algorithms to "pulling" what we need.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-3xl shadow-sm text-left">
+                    <h4 class="text-graceTeal font-bold text-xl mb-4">1. Introduce Friction</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>Turn on <strong>Grayscale Mode</strong> to make shock-based images less rewarding.</li>
+                        <li>Move news and social apps off the home screen and into folders.</li>
+                        <li>Disable "Autoplay" on all video platforms.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm text-left">
+                    <h4 class="text-graceOrange font-bold text-xl mb-4">2. Push to Pull</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>Disable ALL news notifications. Decide when YOU want to see the news.</li>
+                        <li>Use an RSS feeder or "Pull" reader for news rather than an infinite social feed.</li>
+                        <li>Set a "Stop Sign" timer (e.g., 15 minutes) for all information-bingeing apps.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-graceDark text-white p-12 rounded-3xl text-center">
+                <h3 class="text-2xl font-heading font-bold mb-4">Rest for Your Soul</h3>
+                <p class="mb-8 text-gray-300 max-w-2xl mx-auto">Doomscrolling is a search for safety in a world that feels dangerous. As a church, we point to the ultimate safety found in Christ, whose news is Good and whose yoke is easy.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#" class="bg-graceTeal text-white px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform">Get Digital Wellness Help</a>
+                    <a href="#" class="bg-white text-graceDark px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform">Join a Media-Free Group</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-100 py-12 px-6 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+            <div class="text-center md:text-left mb-6 md:mb-0">
+                <p class="font-bold text-graceBlue">Grace Community Church</p>
+                <p>Detroit, Michigan | "We are a mosaic striving to live like Jesus."</p>
+            </div>
+            <div class="text-center md:text-right">
+                <p>&copy; 2026 Gracewired.com</p>
+                <p>For more resources, visit the GraceWired Hub.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Navigation Logic
+        function showTab(tabId) {
+            // Update Tab Visibility
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+
+            // Update Nav Buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-graceBlue');
+                btn.classList.add('bg-graceBlue', 'text-white', 'border', 'border-white/30');
+            });
+            event.currentTarget.classList.remove('bg-graceBlue', 'text-white', 'border', 'border-white/30');
+            event.currentTarget.classList.add('bg-white', 'text-graceBlue');
+
+            // Redraw charts if needed
+            if(tabId === 'reality') renderRealityChart();
+            if(tabId === 'machine') renderAlgorithmChart();
+        }
+
+        // Charts Initialization
+        let realityChart, algorithmChart;
+
+        function renderRealityChart() {
+            if(realityChart) realityChart.destroy();
+            const ctx = document.getElementById('realityChart').getContext('2d');
+            realityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Gen Z (18-29)', 'Millennials', 'Gen X', 'Boomers'],
+                    datasets: [{
+                        label: 'Self-Reported Doomscrolling Issues (%)',
+                        data: [46, 38, 26, 15],
+                        backgroundColor: ['#c75d00', '#027DC1', '#00B0BD', '#353230'],
+                        borderRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 60 }
+                    }
+                }
+            });
+        }
+
+        function renderAlgorithmChart() {
+            if(algorithmChart) algorithmChart.destroy();
+            const ctx = document.getElementById('algorithmChart').getContext('2d');
+            algorithmChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Start', 'Shocking News', 'Anxiety Spike', 'Search for Context', 'Refresh Feed', 'Repeat'],
+                    datasets: [{
+                        label: 'Dopamine / Cortisol Cycle',
+                        data: [10, 80, 40, 60, 90, 70],
+                        borderColor: '#c75d00',
+                        backgroundColor: 'rgba(199, 93, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Initial Load
+        window.onload = function() {
+            renderRealityChart();
+        }
+    </script>
+</body>
+</html>
